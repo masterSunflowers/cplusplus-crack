@@ -449,4 +449,16 @@ public:
         }
         return -1;
     }
+    /*
+    *   date:    03/12/24
+    *   problem: https://leetcode.com/problems/adding-spaces-to-a-string/
+    */
+    string addSpaces(string s, vector<int>& spaces) {
+        string res = s.substr(0, spaces[0]) + " ";
+        for (int i = 1; i < spaces.size(); i++) {
+            res += s.substr(spaces[i - 1], spaces[i] - spaces[i - 1]) + " ";
+        }
+        res += s.substr(spaces.back(), s.size() - spaces.back());
+        return res;
+    }
 };
