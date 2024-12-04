@@ -461,4 +461,41 @@ public:
         res += s.substr(spaces.back(), s.size() - spaces.back());
         return res;
     }
+    /*
+    *   date:    04/12/24
+    *   problem: https://leetcode.com/problems/make-string-a-subsequence-using-cyclic-increments/
+    */
+    char next_char(char c) {
+        return char((int(c) - int('a') + 1) % 26 + int('a'));
+    }
+    bool canMakeSubsequence(string str1, string str2) {
+        if (str2.length() > str1.length()) return false;
+        int i = 0, j = 0;
+        while (j < str2.length() && i < str1.length()) {
+            cout << i << j << endl;
+            while (str1[i] != str2[j] && next_char(str1[i]) != str2[j] && i < str1.length()) {
+                i++;
+            }
+            if (i == str1.length()) continue;
+            i++;
+            j++;
+        }
+        
+        return j == str2.length();
+    }
+
+    // More clean code
+    bool canMakeSubsequence(string str1, string str2) {
+        int i = 0, j = 0;
+        for (; i < str1.length() && j < str2.length();) {
+            char c = str1[i] == 'z' ? 'a' : str1[i] + 1;
+            if (str1[i] == str2[j] || c == str2[j]) {
+                i++;
+                j++;
+            } else {
+                i++;
+            }
+        }
+        return j == str2.length();
+    }
 };
