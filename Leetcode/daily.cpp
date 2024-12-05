@@ -498,4 +498,33 @@ public:
         }
         return j == str2.length();
     }
+    /*
+    *   date:    05/12/24
+    *   problem: https://leetcode.com/problems/move-pieces-to-obtain-a-string/
+    */
+   bool canChange(string start, string target) {
+        vector<pair<char, int>> start_removed_blank;
+        vector<pair<char, int>> target_removed_blank;
+        for (int i = 0; i < start.length(); i++) {
+            if (start[i] != '_') {
+                start_removed_blank.push_back(make_pair(start[i], i));
+            }
+        }
+        for (int i = 0; i < target.length(); i++) {
+            if (target[i] != '_') {
+                target_removed_blank.push_back(make_pair(target[i], i));
+            }
+        }
+        if (start_removed_blank.size() != target_removed_blank.size()) return false;
+        int len = start_removed_blank.size();
+        for (int i = 0; i < len; i++) {
+            if (start_removed_blank[i].first != target_removed_blank[i].first) return false;
+            if (start_removed_blank[i].first == 'L') {
+                if (start_removed_blank[i].second < target_removed_blank[i].second) return false;
+            } else {
+                if (start_removed_blank[i].second > target_removed_blank[i].second) return false;
+            }
+        }
+        return true;
+    }
 };
